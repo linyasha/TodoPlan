@@ -2,18 +2,16 @@ package com.example.todoplan.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.todoplan.model.Note
-import kotlinx.coroutines.flow.Flow
-import org.w3c.dom.Node
+import com.example.todoplan.data.model.Note
 
 @Dao
 interface NoteDao {
 
     @Query("SELECT * FROM Note")
-    fun getAll(): Flow<List<Note>>
+    fun getAll(): List<Note>
 
     @Query("SELECT * FROM Note")
-    fun getLiveData(): LiveData<List<Node>>
+    fun getLiveData(): LiveData<List<Note>>
 
     @Query("SELECT * FROM Note WHERE id IN (:noteIds)")
     fun loadAllByIds(noteIds: IntArray): List<Note>
@@ -22,7 +20,7 @@ interface NoteDao {
     fun findNoteById(id: Int): Note
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: Note)
+    suspend fun insert(user: Note)
 
     @Delete
     fun delete(user: Note)

@@ -1,4 +1,4 @@
-package com.example.todoplan.model
+package com.example.todoplan.data.model
 
 import android.os.Parcel
 import android.os.Parcelable

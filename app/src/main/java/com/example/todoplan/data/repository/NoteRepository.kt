@@ -1,35 +1,31 @@
-package com.example.todoplan.repository
+package com.example.todoplan.data.repository
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.example.todoplan.data.NoteDao
-import com.example.todoplan.model.Note
-import kotlinx.coroutines.flow.Flow
+import com.example.todoplan.data.model.Note
 
-class MainRepository(private val noteDao: NoteDao) {
-    val allNotes: Flow<List<Note>> = noteDao.getAll()
+class NoteRepository(private val noteDao: NoteDao) {
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
+    val allNotes: LiveData<List<Note>> = noteDao.getLiveData()
+
     suspend fun insert(note: Note) {
         noteDao.insert(note)
     }
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
     suspend fun delete(note: Note) {
         noteDao.delete(note)
     }
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
+
     suspend fun update(note: Note) {
         noteDao.update(note)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun getLiveData() {
-        noteDao.getLiveData()
+    suspend fun getAll() {
+        noteDao.getAll()
     }
 
     @Suppress("RedundantSuspendModifier")
